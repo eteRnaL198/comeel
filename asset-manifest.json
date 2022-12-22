@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/sdpbl-tak/static/css/main.c409b28e.css",
+    "main.js": "/sdpbl-tak/static/js/main.449c2651.js",
+    "static/js/787.184f535e.chunk.js": "/sdpbl-tak/static/js/787.184f535e.chunk.js",
+    "index.html": "/sdpbl-tak/index.html",
+    "main.c409b28e.css.map": "/sdpbl-tak/static/css/main.c409b28e.css.map",
+    "main.449c2651.js.map": "/sdpbl-tak/static/js/main.449c2651.js.map",
+    "787.184f535e.chunk.js.map": "/sdpbl-tak/static/js/787.184f535e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c409b28e.css",
+    "static/js/main.449c2651.js"
+  ]
+}
