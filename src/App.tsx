@@ -1,23 +1,15 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+
+import { CafeteriaList } from "containers/Cafeteria/components";
+import { Header } from "containers/Header/components";
+import Div100vh from "react-div-100vh";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p className="text-3xl font-bold underline text-red-600">hoge</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Div100vh className="bg-orange-100 flex flex-col overflow-y-auto">
+      <Header />
+      <CafeteriaList />
+    </Div100vh>
   );
 }
 
