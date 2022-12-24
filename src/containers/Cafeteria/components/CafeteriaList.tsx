@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Card } from ".";
+import { Card } from "..";
 
 const data = [
   {

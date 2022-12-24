@@ -1,7 +1,7 @@
 import React from "react";
 
-import { CafeteriaList } from "containers/Cafeteria/components";
-import { Header } from "containers/Header/components";
+import { CafeteriaList } from "containers/Cafeteria";
+import { Header } from "containers/Header";
 import Div100vh from "react-div-100vh";
 
 function App() {
