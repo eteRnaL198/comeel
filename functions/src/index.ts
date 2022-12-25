@@ -1,7 +1,9 @@
 import { https } from "firebase-functions";
 import { Client, Message, WebhookEvent } from "@line/bot-sdk";
+import { initializeApp } from "firebase-admin/app";
+import { getFirestore } from "firebase-admin/firestore";
 
-export const aidEvent = https.onRequest((req, res) => {
+export const aidEvent = https.onRequest(async (req, res) => {
   if (req.method !== "POST") {
     res.status(200).send("Not POST method.");
     return;
@@ -42,8 +44,16 @@ export const aidEvent = https.onRequest((req, res) => {
     res.status(500).send(`Failed to reply message. Error: ${err}`);
   });
 
-  // データベースに追加
-  // 既にあったらスルー
+  // 新規ユーザーをデータベースに登録
+  initializeApp();
+  const db = getFirestore();
+  const docRef = db.collection("users").doc(userId);
+  const docSnap = await docRef.get();
+  if (!docSnap.exists) {
+    await docRef.set({
+      name: "",
+    });
+  }
 
   res.send(userId);
   return;
