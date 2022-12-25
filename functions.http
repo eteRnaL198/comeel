@@ -1,0 +1,29 @@
+POST https://us-central1-sdpbl-tak-4c7ea.cloudfunctions.net/aidEvent
+# POST https://webhook.site/d00b044a-bd2d-4642-9231-5521cff71e5b
+Content-Type: application/json
+charset: utf-8
+
+{
+  "destination": "U48f4ae6ac0d747daf01b593a00589f00",
+  "events": [
+    {
+      "type": "message",
+      "message": {
+        "type": "text",
+        "id": "17349329540988",
+        "text": "支援する"
+      },
+      "webhookEventId": "01GN164XFNDDCBC2VFF5XMK2R1",
+      "deliveryContext": {
+        "isRedelivery": false
+      },
+      "timestamp": 1671856026973,
+      "source": {
+        "type": "user",
+        "userId": "U484f3be22c75beca7cfcc75ea51eba8f"
+      },
+      "replyToken": "91907426d0ed459baa83d45fb2048c3e",
+      "mode": "active"
+    }
+  ]
+}
