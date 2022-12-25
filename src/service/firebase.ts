@@ -1,5 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  getDocs,
+  collection,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -16,4 +22,10 @@ export const existDocument = async (collection: string, document: string) => {
   const docRef = doc(db, collection, document);
   const docSnap = await getDoc(docRef);
   return docSnap.exists();
+};
+
+export const getAllDocuments = async <T>(collect: string): Promise<T[]> => {
+  const collectionRef = collection(db, collect);
+  const querySnap = await getDocs(collectionRef);
+  return querySnap.docs.map((doc) => doc.data() as T);
 };

@@ -12,13 +12,7 @@ function App() {
   return (
     <Div100vh className="bg-orange-100 flex flex-col overflow-y-auto">
       <Header />
-      {user ? (
-        <>
-          <CafeteriaList />
-        </>
-      ) : (
-        <Login setUser={setUser} />
-      )}
+      {user ? <CafeteriaList /> : <Login setUser={setUser} />}
     </Div100vh>
   );
 }

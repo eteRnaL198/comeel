@@ -26,7 +26,7 @@ export const Login: React.FC<Props> = ({ setUser }) => {
         setErrorMessage("ユーザーが存在しません");
         return;
       }
-      setUser({ id: userId });
+      setUser({ id: userId, name: "" });
       setErrorMessage("");
     } catch (error) {
       setErrorMessage("ログインに失敗しました");
