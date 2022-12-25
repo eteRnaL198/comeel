@@ -1,5 +1,5 @@
 import React, { FC } from "react";
 
-export const Modal: FC = () => {
+export const TicketModal: FC = () => {
   return <div className="flex"></div>;
 };

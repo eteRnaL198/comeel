@@ -1,23 +1,42 @@
 import React, { FC } from "react";
+import { Cafeteria } from "common/type";
 
-type Props = {
-  name: string;
-  img: string;
-  url: string;
-};
+type Props = Cafeteria;
 
-export const Card: FC<Props> = ({ name, img, url }) => {
+export const Card: FC<Props> = ({
+  name,
+  prefecture,
+  city,
+  address,
+  img,
+  menu,
+}) => {
   const handleClick = () => {
-    window.open(url);
+    window.open("https://www.youtube.com/watch?v=7W4Ma1Gn7b0"); // TODO 食券購入モーダルを表示
   };
 
   return (
-    <button
-      className="bg-white drop-shadow-lg flex flex-col p-5 rounded-2xl"
+    <div
+      className="bg-white drop-shadow-lg flex gap-3 p-3 rounded-2xl text-left"
       onClick={handleClick}
     >
-      <img className="h-1/3 object-contain" src={img} />
-      <p>{name}</p>
-    </button>
+      <img className="object-contain rounded-xl w-4/12" src={img} />
+      <div className="flex flex-col grow items-center justify-between">
+        <p className="font-bold">{name}</p>
+        <div className="text-left">
+          <p className="text-xs">
+            {prefecture}
+            {city}
+            {address}
+          </p>
+        </div>
+        <button
+          onClick={handleClick}
+          className="bg-orange-300 rounded-full w-10/12"
+        >
+          支援
+        </button>
+      </div>
+    </div>
   );
 };
