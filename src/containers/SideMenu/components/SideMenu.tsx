@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { PageName } from "common/types";
+import { GrayBackground } from "common/components";
 import Icon from "img/cross.png";
 
 type Props = {
@@ -65,16 +66,7 @@ export const SideMenu: React.FC<Props> = ({
           ))}
         </div>
       </div>
-      <div
-        className={`absolute bg-black h-full opacity-50 w-full z-40
-        ${isSideMenuOpen ? "" : "hidden"}
-        `}
-        onClick={() => {
-          setIsSideMenuOpen(false);
-        }}
-      >
-        hoge
-      </div>
+      <GrayBackground isOpen={isSideMenuOpen} setIsOpen={setIsSideMenuOpen} />
     </>
   );
 };

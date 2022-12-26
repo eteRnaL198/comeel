@@ -1,10 +1,13 @@
 import React, { FC, useEffect, useState } from "react";
-import { Card } from "..";
+import { Card, Modal } from "..";
 import { fetchAllDocuments } from "service/firebase";
-import { Cafeteria } from "common/types";
+import { Cafeteria, Ticket } from "common/types";
+import { GrayBackground } from "common/components";
 
 export const CafeteriaList: FC = () => {
   const [cafeterias, setCafeterias] = useState<Cafeteria[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [menu, setMenu] = useState<Ticket[]>([]);
 
   useEffect(() => {
     fetchAllDocuments<Cafeteria>("cafeterias").then((docs) => {
@@ -12,23 +15,35 @@ export const CafeteriaList: FC = () => {
     });
   }, []);
 
+  const handleCardClick = (menu: Ticket[]) => {
+    setIsModalOpen(true);
+    setMenu(menu);
+  };
+
   return (
-    <div className="h-full m-auto w-11/12">
-      <div className="flex flex-col gap-5 pb-7">
+    <>
+      <div className="flex flex-col gap-5 grow mx-auto pb-7 w-11/12">
         {[...cafeterias, ...cafeterias].map((elm, idx) => {
           return (
             <Card
+              key={idx}
               name={elm.name}
               prefecture={elm.prefecture}
               city={elm.city}
               address={elm.address}
               img={elm.img}
               menu={elm.menu}
-              key={idx}
+              handleClick={handleCardClick}
             />
           );
         })}
       </div>
-    </div>
+      {isModalOpen && (
+        <>
+          <Modal menu={menu} setIsModalOpen={setIsModalOpen} />
+          <GrayBackground isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
+        </>
+      )}
+    </>
   );
 };

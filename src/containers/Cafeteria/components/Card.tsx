@@ -1,7 +1,7 @@
 import React, { FC } from "react";
-import { Cafeteria } from "common/types";
+import { Cafeteria, Ticket } from "common/types";
 
-type Props = Cafeteria;
+type Props = Cafeteria & { handleClick: (menu: Ticket[]) => void };
 
 export const Card: FC<Props> = ({
   name,
@@ -10,16 +10,10 @@ export const Card: FC<Props> = ({
   address,
   img,
   menu,
+  handleClick,
 }) => {
-  const handleClick = () => {
-    window.open("https://www.youtube.com/watch?v=7W4Ma1Gn7b0"); // TODO 食券購入モーダルを表示
-  };
-
   return (
-    <div
-      className="bg-white drop-shadow-lg flex gap-3 p-3 rounded-2xl text-left"
-      onClick={handleClick}
-    >
+    <div className="bg-white drop-shadow-lg flex gap-3 p-3 rounded-2xl text-left">
       <img className="object-contain rounded-xl w-4/12" src={img} />
       <div className="flex flex-col grow items-center justify-between">
         <p className="font-bold">{name}</p>
@@ -31,7 +25,9 @@ export const Card: FC<Props> = ({
           </p>
         </div>
         <button
-          onClick={handleClick}
+          onClick={() => {
+            handleClick(menu);
+          }}
           className="bg-orange-300 rounded-full w-10/12"
         >
           支援

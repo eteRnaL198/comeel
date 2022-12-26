@@ -6,10 +6,10 @@ export type User = {
 export type Ticket = {
   name: string;
   price: number;
-  cafeteria: string;
-  user: User;
-  used: boolean;
-  createdAt: Date;
+  cafeteriaRef?: string;
+  user?: User;
+  used?: boolean;
+  createdAt?: Date;
 };
 
 export type Cafeteria = {
@@ -18,8 +18,8 @@ export type Cafeteria = {
   city: string;
   address: string;
   img: string;
-  menu: { name: string; price: number }[];
-  tickets?: string[];
+  menu: Ticket[];
+  ticketRefs?: string[];
 };
 
 export type PageName = "top" | "cafeteriaList" | "login";
