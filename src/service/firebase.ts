@@ -24,8 +24,17 @@ export const existDocument = async (collection: string, document: string) => {
   return docSnap.exists();
 };
 
-export const getAllDocuments = async <T>(collect: string): Promise<T[]> => {
+export const fetchAllDocuments = async <T>(collect: string): Promise<T[]> => {
   const collectionRef = collection(db, collect);
   const querySnap = await getDocs(collectionRef);
   return querySnap.docs.map((doc) => doc.data() as T);
+};
+
+export const fetchDocument = async <T>(
+  collection: string,
+  document: string
+) => {
+  const docRef = doc(db, collection, document);
+  const docSnap = await getDoc(docRef);
+  return docSnap.data() as T;
 };

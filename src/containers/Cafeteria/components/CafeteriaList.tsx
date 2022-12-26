@@ -1,13 +1,13 @@
 import React, { FC, useEffect, useState } from "react";
 import { Card } from "..";
-import { getAllDocuments } from "service/firebase";
-import { Cafeteria } from "common/type";
+import { fetchAllDocuments } from "service/firebase";
+import { Cafeteria } from "common/types";
 
 export const CafeteriaList: FC = () => {
   const [cafeterias, setCafeterias] = useState<Cafeteria[]>([]);
 
   useEffect(() => {
-    getAllDocuments<Cafeteria>("cafeterias").then((docs) => {
+    fetchAllDocuments<Cafeteria>("cafeterias").then((docs) => {
       setCafeterias(docs);
     });
   }, []);

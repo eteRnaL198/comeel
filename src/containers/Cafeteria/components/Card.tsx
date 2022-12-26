@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Cafeteria } from "common/type";
+import { Cafeteria } from "common/types";
 
 type Props = Cafeteria;
 

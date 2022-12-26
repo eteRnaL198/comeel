@@ -21,3 +21,5 @@ export type Cafeteria = {
   menu: { name: string; price: number }[];
   tickets?: string[];
 };
+
+export type PageName = "top" | "cafeteriaList" | "login";
