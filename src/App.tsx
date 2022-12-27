@@ -1,18 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
+import Div100vh from "react-div-100vh";
 
 import { CafeteriaList } from "containers/Cafeteria";
 import { Header } from "containers/Header";
 import { Login } from "containers/Login";
-import Div100vh from "react-div-100vh";
-import { User } from "common/type";
+import { Top } from "containers/Top";
+import { SideMenu } from "containers/SideMenu";
+import { UserInformation } from "containers/UserInformation";
+import { PageName } from "common/types";
+import { RecoilRoot } from "recoil";
 
 function App() {
-  const [user, setUser] = useState<User>();
+  const [pageName, setPageName] = useState<PageName>("login");
+  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
+
+  const getPage = useMemo(() => {
+    return {
+      top: <Top />,
+      cafeteriaList: <CafeteriaList />,
+      login: <Login setPageName={(name) => setPageName(name)} />,
+      userInformation: <UserInformation />,
+    }[pageName];
+  }, [pageName]);
 
   return (
     <Div100vh className="bg-orange-100 flex flex-col overflow-y-auto">
-      <Header />
-      {user ? <CafeteriaList /> : <Login setUser={setUser} />}
+      <RecoilRoot>
+        <Header
+          setPageName={setPageName}
+          setIsSideMenuOpen={setIsSideMenuOpen}
+        />
+        <SideMenu
+          isSideMenuOpen={isSideMenuOpen}
+          setIsSideMenuOpen={setIsSideMenuOpen}
+          setPageName={setPageName}
+        />
+        {getPage}
+      </RecoilRoot>
     </Div100vh>
   );
 }

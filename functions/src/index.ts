@@ -51,7 +51,7 @@ export const aidEvent = https.onRequest(async (req, res) => {
   const docSnap = await docRef.get();
   if (!docSnap.exists) {
     await docRef.set({
-      name: "",
+      name: "匿名",
     });
   }
 
