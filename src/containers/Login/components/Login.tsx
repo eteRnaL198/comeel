@@ -1,37 +1,41 @@
+import { useSetRecoilState } from "recoil";
 import React, { useState, useEffect } from "react";
 import { User } from "common/types";
 import { existDocument, fetchDocument } from "service/firebase";
+import { userState } from "globalStates/user";
+import { PageName } from "common/types";
 
 type Props = {
-  handleLogin: (user?: User) => void;
+  setPageName: (name: PageName) => void;
 };
 
-export const Login: React.FC<Props> = ({ handleLogin }) => {
+export const Login: React.FC<Props> = ({ setPageName }) => {
   const [id, setId] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const setUser = useSetRecoilState(userState);
 
   useEffect(() => {
-    handleLogin();
+    setUser(undefined);
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setId(e.target.value);
   };
 
-  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    const userId = e.currentTarget.value;
-    if (!userId) {
+  const handleLoginClick = async () => {
+    if (!id) {
       setErrorMessage("ログインIDを入力してください");
       return;
     }
     try {
-      const existUser = await existDocument("users", userId);
+      const existUser = await existDocument("users", id);
       if (!existUser) {
         setErrorMessage("ユーザーが存在しません");
         return;
       }
-      const user = await fetchDocument<User>("users", userId);
-      handleLogin({ id: userId, name: user.name });
+      const user = await fetchDocument<User>("users", id);
+      setUser({ id: id, name: user.name });
+      setPageName("top");
       setErrorMessage("");
     } catch (error) {
       setErrorMessage("ログインに失敗しました");
@@ -61,11 +65,11 @@ export const Login: React.FC<Props> = ({ handleLogin }) => {
             placeholder="ログインIDを入力"
             className="mb-8 px-4 py-3 rounded-full text-center"
             onChange={handleChange}
+            value={id}
           />
           <button
             className="bg-orange-300 mx-auto p-1 rounded-full w-6/12"
-            value={id}
-            onClick={handleClick}
+            onClick={handleLoginClick}
           >
             ログイン
           </button>

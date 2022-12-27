@@ -3,7 +3,7 @@ import { Card } from "..";
 
 export const Top = () => {
   return (
-    <div className="flex flex-col gap-8 grow">
+    <div className="flex flex-col gap-8 grow pb-16">
       <Card
         title="使い方"
         body={[

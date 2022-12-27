@@ -5,6 +5,11 @@ import {
   getDoc,
   getDocs,
   collection,
+  addDoc,
+  WithFieldValue,
+  DocumentData,
+  updateDoc,
+  arrayUnion,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -18,16 +23,24 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+export const getDocRef = (collection: string, document: string) => {
+  return doc(db, collection, document);
+};
+
 export const existDocument = async (collection: string, document: string) => {
   const docRef = doc(db, collection, document);
   const docSnap = await getDoc(docRef);
   return docSnap.exists();
 };
 
-export const fetchAllDocuments = async <T>(collect: string): Promise<T[]> => {
+export const fetchAllDocumentsWithId = async <T>(
+  collect: string
+): Promise<T[]> => {
   const collectionRef = collection(db, collect);
   const querySnap = await getDocs(collectionRef);
-  return querySnap.docs.map((doc) => doc.data() as T);
+  return querySnap.docs.map(
+    (doc) => ({ ...doc.data(), ...{ id: doc.id } } as T)
+  );
 };
 
 export const fetchDocument = async <T>(
@@ -37,4 +50,33 @@ export const fetchDocument = async <T>(
   const docRef = doc(db, collection, document);
   const docSnap = await getDoc(docRef);
   return docSnap.data() as T;
+};
+
+export const addDocument = async (
+  collect: string,
+  data: WithFieldValue<DocumentData>
+) => {
+  const docRef = await addDoc(collection(db, collect), data);
+  return docRef;
+};
+
+export const updateDocument = async (
+  collect: string,
+  document: string,
+  data: WithFieldValue<DocumentData>
+) => {
+  const docRef = doc(db, collect, document);
+  await updateDoc(docRef, data);
+};
+
+export const addElementToArrayinDocument = async <T>(
+  collection: string,
+  document: string,
+  field: string,
+  data: T
+) => {
+  const docRef = doc(db, collection, document);
+  await updateDoc(docRef, {
+    [field]: arrayUnion(data),
+  });
 };

@@ -29,6 +29,10 @@ export const SideMenu: React.FC<Props> = ({
       label: "子ども食堂一覧",
     },
     {
+      name: "userInformation",
+      label: "ユーザー情報",
+    },
+    {
       name: "login",
       label: "ログアウト",
     },
@@ -41,7 +45,7 @@ export const SideMenu: React.FC<Props> = ({
         ${isSideMenuOpen ? "left-0" : "-left-full"}
         `}
       >
-        <div className="flex flex-row-reverse mb-8 w-full">
+        <div className="flex flex-row-reverse mb-4 w-full">
           <img
             onClick={() => {
               setIsSideMenuOpen(false);
@@ -50,11 +54,11 @@ export const SideMenu: React.FC<Props> = ({
             className="w-7"
           ></img>
         </div>
-        <h1 className="font-bold mb-16 text-4xl text-center">Menu</h1>
-        <div className="flex flex-col gap-16">
+        <h1 className="font-bold mb-8 text-4xl text-center">Menu</h1>
+        <div className="flex flex-col gap-12">
           {pageNames.map((pageName, idx) => (
             <button
-              className="border-b-2 border-gray-300 font-bold pb-4 text-2xl text-left"
+              className="border-b-2 border-gray-300 font-bold pb-3 text-2xl text-left"
               key={idx}
               onClick={() => {
                 setIsSideMenuOpen(false);

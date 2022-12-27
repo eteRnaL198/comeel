@@ -1,14 +1,17 @@
 import React, { FC } from "react";
-import { User, PageName } from "common/types";
+import { PageName } from "common/types";
 import Icon from "img/hamburger-button.png";
+import { useRecoilState } from "recoil";
+import { userState } from "globalStates/user";
 
 type Props = {
   setPageName: (pageName: PageName) => void;
   setIsSideMenuOpen: (isSideMenuOpen: boolean) => void;
-  user?: User;
 };
 
-export const Header: FC<Props> = ({ setPageName, setIsSideMenuOpen, user }) => {
+export const Header: FC<Props> = ({ setPageName, setIsSideMenuOpen }) => {
+  const [user] = useRecoilState(userState);
+
   return (
     <header className="bg-white drop-shadow-md font-bold flex justify-between mb-8 px-5 py-2 rounded-b-xl sticky top-0 z-40">
       <button

@@ -1,23 +1,35 @@
 import React, { FC, useEffect, useState } from "react";
-import { Card, Modal } from "..";
-import { fetchAllDocuments } from "service/firebase";
+import { Card, TicketModal, MessageModal } from "..";
+import { fetchAllDocumentsWithId, getDocRef } from "service/firebase";
 import { Cafeteria, Ticket } from "common/types";
-import { GrayBackground } from "common/components";
 
 export const CafeteriaList: FC = () => {
   const [cafeterias, setCafeterias] = useState<Cafeteria[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [menu, setMenu] = useState<Ticket[]>([]);
+  const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
+  const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
+  const [selectedMenu, setSelectedMenu] = useState<Ticket[]>([]);
 
   useEffect(() => {
-    fetchAllDocuments<Cafeteria>("cafeterias").then((docs) => {
-      setCafeterias(docs);
+    fetchAllDocumentsWithId<Cafeteria>("cafeterias").then((docs) => {
+      const cafes = docs.map((doc) => {
+        const menu = doc.menu.map((ticket) => {
+          return {
+            ...ticket,
+            cafeteria: getDocRef("cafeterias", doc.id),
+          };
+        });
+        return {
+          ...doc,
+          menu,
+        };
+      });
+      setCafeterias(cafes);
     });
   }, []);
 
   const handleCardClick = (menu: Ticket[]) => {
-    setIsModalOpen(true);
-    setMenu(menu);
+    setIsTicketModalOpen(true);
+    setSelectedMenu(menu);
   };
 
   return (
@@ -27,6 +39,7 @@ export const CafeteriaList: FC = () => {
           return (
             <Card
               key={idx}
+              id={elm.id}
               name={elm.name}
               prefecture={elm.prefecture}
               city={elm.city}
@@ -38,11 +51,25 @@ export const CafeteriaList: FC = () => {
           );
         })}
       </div>
-      {isModalOpen && (
-        <>
-          <Modal menu={menu} setIsModalOpen={setIsModalOpen} />
-          <GrayBackground isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
-        </>
+      {isTicketModalOpen && (
+        <TicketModal
+          menu={selectedMenu}
+          isModalOpen={isTicketModalOpen}
+          setIsModalOpen={(flag) => {
+            setIsTicketModalOpen(flag);
+          }}
+          setIsMessageModalOpen={(flag) => {
+            setIsMessageModalOpen(flag);
+          }}
+        />
+      )}
+      {isMessageModalOpen && (
+        <MessageModal
+          isModalOpen={isMessageModalOpen}
+          setIsModalOpen={(flag) => {
+            setIsMessageModalOpen(flag);
+          }}
+        />
       )}
     </>
   );

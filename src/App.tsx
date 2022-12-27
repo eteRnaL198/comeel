@@ -6,41 +6,37 @@ import { Header } from "containers/Header";
 import { Login } from "containers/Login";
 import { Top } from "containers/Top";
 import { SideMenu } from "containers/SideMenu";
-import { User, PageName } from "common/types";
+import { UserInformation } from "containers/UserInformation";
+import { PageName } from "common/types";
+import { RecoilRoot } from "recoil";
 
 function App() {
-  const [user, setUser] = useState<User>();
   const [pageName, setPageName] = useState<PageName>("login");
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
-
-  const handleLogin = (user?: User) => {
-    if (user) {
-      setUser(user);
-      setPageName("top");
-    } else setUser(undefined);
-  };
 
   const getPage = useMemo(() => {
     return {
       top: <Top />,
       cafeteriaList: <CafeteriaList />,
-      login: <Login handleLogin={handleLogin} />,
+      login: <Login setPageName={(name) => setPageName(name)} />,
+      userInformation: <UserInformation />,
     }[pageName];
   }, [pageName]);
 
   return (
     <Div100vh className="bg-orange-100 flex flex-col overflow-y-auto">
-      <Header
-        setPageName={setPageName}
-        user={user}
-        setIsSideMenuOpen={setIsSideMenuOpen}
-      />
-      <SideMenu
-        isSideMenuOpen={isSideMenuOpen}
-        setIsSideMenuOpen={setIsSideMenuOpen}
-        setPageName={setPageName}
-      />
-      {getPage}
+      <RecoilRoot>
+        <Header
+          setPageName={setPageName}
+          setIsSideMenuOpen={setIsSideMenuOpen}
+        />
+        <SideMenu
+          isSideMenuOpen={isSideMenuOpen}
+          setIsSideMenuOpen={setIsSideMenuOpen}
+          setPageName={setPageName}
+        />
+        {getPage}
+      </RecoilRoot>
     </Div100vh>
   );
 }

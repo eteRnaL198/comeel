@@ -1,3 +1,5 @@
+import { DocumentReference } from "firebase/firestore";
+
 export type User = {
   id: string;
   name: string;
@@ -6,20 +8,22 @@ export type User = {
 export type Ticket = {
   name: string;
   price: number;
-  cafeteriaRef?: string;
-  user?: User;
+  cafeteria: DocumentReference;
+  id?: string;
+  user?: DocumentReference;
   used?: boolean;
   createdAt?: Date;
 };
 
 export type Cafeteria = {
+  id: string;
   name: string;
   prefecture: string;
   city: string;
   address: string;
   img: string;
   menu: Ticket[];
-  ticketRefs?: string[];
+  tickets?: DocumentReference[];
 };
 
-export type PageName = "top" | "cafeteriaList" | "login";
+export type PageName = "top" | "cafeteriaList" | "login" | "userInformation";
