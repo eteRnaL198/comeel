@@ -1,5 +1,6 @@
 import { https } from "firebase-functions";
 import { Client, Message, WebhookEvent } from "@line/bot-sdk";
+import { apps } from "firebase-admin";
 import { initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 
@@ -45,7 +46,7 @@ export const aidEvent = https.onRequest(async (req, res) => {
   });
 
   // 新規ユーザーをデータベースに登録
-  initializeApp();
+  if (apps.length === 0) initializeApp();
   const db = getFirestore();
   const docRef = db.collection("users").doc(userId);
   const docSnap = await docRef.get();

@@ -1,6 +1,6 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
+import { RecoilRoot } from "recoil";
 import Div100vh from "react-div-100vh";
-
 import { CafeteriaList } from "containers/Cafeteria";
 import { Header } from "containers/Header";
 import { Login } from "containers/Login";
@@ -8,11 +8,15 @@ import { Top } from "containers/Top";
 import { SideMenu } from "containers/SideMenu";
 import { UserInformation } from "containers/UserInformation";
 import { PageName } from "common/types";
-import { RecoilRoot } from "recoil";
+import { initFirebase } from "service/firebase";
 
 function App() {
   const [pageName, setPageName] = useState<PageName>("login");
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
+
+  useEffect(() => {
+    initFirebase();
+  }, []);
 
   const getPage = useMemo(() => {
     return {

@@ -35,7 +35,7 @@ export const CafeteriaList: FC = () => {
   return (
     <>
       <div className="flex flex-col gap-5 grow mx-auto pb-7 w-11/12">
-        {[...cafeterias, ...cafeterias].map((elm, idx) => {
+        {cafeterias.map((elm, idx) => {
           return (
             <Card
               key={idx}

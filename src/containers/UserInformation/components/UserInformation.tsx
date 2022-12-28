@@ -36,7 +36,7 @@ export const UserInformation = () => {
           }}
         />
         <button
-          className=" bg-orange-300 px-2 rounded-full text-xl"
+          className=" bg-orange-300 px-2 rounded-full"
           onClick={handleSaveClick}
         >
           保存
