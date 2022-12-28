@@ -26,7 +26,7 @@ export const SideMenu: React.FC<Props> = ({
     },
     {
       name: "cafeteriaList",
-      label: "子ども食堂一覧",
+      label: "こども食堂一覧",
     },
     {
       name: "userInformation",

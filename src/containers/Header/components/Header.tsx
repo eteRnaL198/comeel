@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { PageName } from "common/types";
-import Icon from "img/hamburger-button.png";
+import Logo from "img/logo.png";
+import Hamburger from "img/hamburger-button.png";
 import { useRecoilState } from "recoil";
 import { userState } from "globalStates/user";
 
@@ -15,21 +16,22 @@ export const Header: FC<Props> = ({ setPageName, setIsSideMenuOpen }) => {
   return (
     <header className="bg-white drop-shadow-md font-bold flex justify-between mb-8 px-5 py-2 rounded-b-xl sticky top-0 z-40">
       <button
-        className="text-2xl"
+        className="flex"
         onClick={() => {
-          setPageName("top");
+          if (user) setPageName("top");
         }}
       >
-        感謝感謝
+        <img src={Logo} className="h-8" />
+        <p className="text-2xl">感謝感謝</p>
       </button>
       {user && (
-        <img
-          src={Icon}
+        <button
           onClick={() => {
             setIsSideMenuOpen(true);
           }}
-          className="w-7"
-        ></img>
+        >
+          <img src={Hamburger} className="w-7"></img>
+        </button>
       )}
     </header>
   );
