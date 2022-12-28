@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import {
-  getFirestore,
+  Firestore,
   doc,
   getDoc,
   getDocs,
@@ -10,7 +10,7 @@ import {
   DocumentData,
   updateDoc,
   arrayUnion,
-  Firestore,
+  initializeFirestore,
 } from "firebase/firestore";
 
 let db: Firestore;
@@ -22,9 +22,10 @@ export const initFirebase = () => {
     storageBucket: process.env.REACT_APP_STORASGE_BACKET,
     messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
     appId: process.env.REACT_APP_APP_ID,
+    experimentalAutoDetectLongPolling: true,
   };
   const app = initializeApp(firebaseConfig);
-  db = getFirestore(app);
+  db = initializeFirestore(app, { experimentalAutoDetectLongPolling: true });
 };
 
 export const getDocRef = (collection: string, document: string) => {
