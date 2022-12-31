@@ -22,7 +22,7 @@ export const Header: FC<Props> = ({ setPageName, setIsSideMenuOpen }) => {
         }}
       >
         <img src={Logo} className="h-8" />
-        <p className="text-2xl">感謝感謝</p>
+        <p className="text-2xl">こみ～る</p>
       </button>
       {user && (
         <button

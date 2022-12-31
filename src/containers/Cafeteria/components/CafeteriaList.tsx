@@ -1,13 +1,18 @@
 import React, { FC, useEffect, useState } from "react";
-import { Card, TicketModal, MessageModal } from "..";
+import { useRecoilValue } from "recoil";
+import { Card, TicketModal } from "..";
 import { fetchAllDocumentsWithId, getDocRef } from "service/firebase";
 import { Cafeteria, Ticket } from "common/types";
+import { MessageModal } from "common/components";
+import { User } from "common/types";
+import { userState } from "globalStates/user";
 
 export const CafeteriaList: FC = () => {
   const [cafeterias, setCafeterias] = useState<Cafeteria[]>([]);
   const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
   const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState<Ticket[]>([]);
+  const user = useRecoilValue(userState) as User;
 
   useEffect(() => {
     fetchAllDocumentsWithId<Cafeteria>("cafeterias").then((docs) => {
@@ -69,7 +74,13 @@ export const CafeteriaList: FC = () => {
           setIsModalOpen={(flag) => {
             setIsMessageModalOpen(flag);
           }}
-        />
+        >
+          <p className="font-bold">{user.name}さん</p>
+          <p className="font-bold">ご支援ありがとうございます</p>
+          <p className="text-left">
+            公式LINEより、子どもたちから「ありがとう」のメッセージが届くのをお待ちください。
+          </p>
+        </MessageModal>
       )}
     </>
   );

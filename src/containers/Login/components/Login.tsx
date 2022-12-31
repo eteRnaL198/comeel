@@ -47,10 +47,11 @@ export const Login: React.FC<Props> = ({ setPageName }) => {
       <div className="flex flex-col grow gap-10 justify-around mx-auto w-11/12">
         <div>
           <h2 className="font-bold mb-5 text-center text-gray-900 text-xl md:text-4xl">
-            「未来」からの「ありがとう」
+            やさしさで創る あたたかい未来
           </h2>
           <p>
-            こちらのサービスは、こども食堂への支援を募ることを目的としています。
+            <span className="font-bold">こみ～る</span>
+            は、こども食堂への支援と普及を促進させることを目的としたサービスです。
             あなたから頂いたご支援は、こどもたちからの「ありがとう」のメッセージとしてお返しいたします。
           </p>
           <p className="mt-10 text-red-600">
