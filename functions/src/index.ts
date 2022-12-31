@@ -37,7 +37,7 @@ export const aidEvent = https.onRequest(async (req, res) => {
     },
     {
       type: "text",
-      text: "上記のIDをコピーして、こちらのサイトにアクセスしてください\nhttps://sdpbl-tak-4c7ea.web.app/",
+      text: "上記のIDをコピーして、こちらのサイトにアクセスしてください\nhttps://comeel.web.app/",
     },
   ];
   const replyToken = events[0].replyToken;
