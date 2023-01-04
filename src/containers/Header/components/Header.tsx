@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { PageName } from "common/types";
 import Logo from "img/logo.png";
 import Hamburger from "img/hamburger-button.png";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { userState } from "globalStates/user";
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 };
 
 export const Header: FC<Props> = ({ setPageName, setIsSideMenuOpen }) => {
-  const [user] = useRecoilState(userState);
+  const user = useRecoilValue(userState);
 
   return (
     <header className="bg-white drop-shadow-md font-bold flex justify-between mb-8 px-5 py-2 rounded-b-xl sticky top-0 z-40">
